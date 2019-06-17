@@ -13,6 +13,46 @@ import java.util.List;
  */
 public class App
 {
+
+    public static ArrayList<String> run(List<String> lines) {
+
+        Command listCommand = new ListCommand();
+        Command dependCommand = new DependCommand();
+        Command installCommand = new InstallCommand();
+        Command removeCommand = new RemoveCommand();
+
+        HashMap<String, Command> map = new HashMap<>();
+        map.put("DEPEND", dependCommand);
+        map.put("INSTALL", installCommand);
+        map.put("REMOVE", removeCommand);
+        map.put("LIST", listCommand);
+
+        ArrayList<String> result = new ArrayList<>();
+
+        for(String line : lines) {
+
+            result.add(line);
+
+            String[] tokens = line.split("\\s+");
+
+            String cmdArgs = "";
+            String cmdType = tokens[0];
+            if(tokens.length > 1) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int i = 1; i < tokens.length; i++)
+                    stringBuilder.append(tokens[i]).append(" ");
+                stringBuilder.deleteCharAt(stringBuilder.length()-1);
+                cmdArgs = stringBuilder.toString();
+            }
+            Command cmd = map.get(cmdType);
+            if(cmd != null)
+                result.addAll(new CommandRunner(cmd).run(cmdArgs));
+
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) throws IllegalArgumentException {
 
         List<String> lines = new ArrayList<>();
@@ -107,40 +147,9 @@ public class App
                 "LIST"
                 );*/
 
-        Command listCommand = new ListCommand();
-        Command dependCommand = new DependCommand();
-        Command installCommand = new InstallCommand();
-        Command removeCommand = new RemoveCommand();
 
-        HashMap<String, Command> map = new HashMap<>();
-        map.put("DEPEND", dependCommand);
-        map.put("INSTALL", installCommand);
-        map.put("REMOVE", removeCommand);
-        map.put("LIST", listCommand);
 
-        ArrayList<String> result = new ArrayList<>();
-
-        for(String line : lines) {
-
-            result.add(line);
-
-            String[] tokens = line.split("\\s+");
-
-            String cmdArgs = "";
-            String cmdType = tokens[0];
-            if(tokens.length > 1) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for(int i = 1; i < tokens.length; i++)
-                    stringBuilder.append(tokens[i]).append(" ");
-                stringBuilder.deleteCharAt(stringBuilder.length()-1);
-                cmdArgs = stringBuilder.toString();
-            }
-            Command cmd = map.get(cmdType);
-            if(cmd != null)
-                result.addAll(new CommandRunner(cmd).run(cmdArgs));
-
-        }
-
+        ArrayList<String> result = run(lines);
         for(String line : result)
             System.out.println(line);
     }

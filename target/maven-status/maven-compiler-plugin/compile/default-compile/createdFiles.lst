@@ -1,1 +1,10 @@
 com/javawithprince/App.class
+com/javawithprince/ADT/Util/GraphUtil.class
+com/javawithprince/ADT/Graph.class
+com/javawithprince/Command/ListCommand.class
+com/javawithprince/Command/CommandRunner.class
+com/javawithprince/Command/RemoveCommand.class
+com/javawithprince/POJO/RepoContext.class
+com/javawithprince/Command/InstallCommand.class
+com/javawithprince/Command/DependCommand.class
+com/javawithprince/Command/Command.class

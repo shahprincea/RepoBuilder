@@ -4,17 +4,49 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Unit test for simple App.
  */
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+
     @Test
-    public void shouldAnswerWithTrue()
+    public void longInterdependentTest()
     {
-        assertTrue( true );
+        List<String> lines = new ArrayList<>();
+
+        lines = Arrays.asList("DEPEND TELNET TCPIP NETCARD",
+                "DEPEND TCPIP NETCARD",
+                "DEPEND DNS TCPIP NETCARD",
+                "DEPEND BROWSER TCPIP HTML",
+                "INSTALL NETCARD",
+                "INSTALL TELNET",
+                "INSTALL FOO",
+                "REMOVE NETCARD",
+                "INSTALL BROWSER",
+                "INSTALL DNS",
+                "LIST",
+                "REMOVE TELNET",
+                "REMOVE NETCARD",
+                "REMOVE DNS",
+                "REMOVE NETCARD",
+                "INSTALL NETCARD",
+                "REMOVE TCPIP",
+                "REMOVE BROWSER",
+                "REMOVE TCPIP",
+                "LIST");
+
+        List<String> result = App.run(lines);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        //Store result of last command LIST
+        stringBuilder.append(result.get(result.size()-1)).append(" ").append(result.get(result.size()-2));
+        String output = stringBuilder.toString().trim();
+
+        assertTrue( output.equals("NETCARD     FOO"));
     }
 }

@@ -1,1 +1,10 @@
 /Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/App.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/Command.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/ADT/Util/GraphUtil.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/InstallCommand.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/ADT/Graph.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/DependCommand.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/ListCommand.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/RemoveCommand.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/POJO/RepoContext.java
+/Users/princeshah/Codebase/RepoBuilder/src/main/java/com/javawithprince/Command/CommandRunner.java
