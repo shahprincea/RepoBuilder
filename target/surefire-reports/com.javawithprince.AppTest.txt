@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.javawithprince.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 s - in com.javawithprince.AppTest
+Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.062 s <<< FAILURE! - in com.javawithprince.AppTest
+recursivelyRemoveDependencyt(com.javawithprince.AppTest)  Time elapsed: 0.007 s  <<< ERROR!
+java.lang.IllegalArgumentException: Cyclic depedencies detected
+	at com.javawithprince.AppTest.recursivelyRemoveDependencyt(AppTest.java:82)
+
+longInterdependentTest(com.javawithprince.AppTest)  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalArgumentException: Cyclic depedencies detected
+	at com.javawithprince.AppTest.longInterdependentTest(AppTest.java:43)
+

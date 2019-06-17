@@ -14,7 +14,7 @@ import java.util.List;
 public class App
 {
 
-    public static ArrayList<String> run(List<String> lines) {
+    public ArrayList<String> run(List<String> lines) {
 
         Command listCommand = new ListCommand();
         Command dependCommand = new DependCommand();
@@ -51,106 +51,5 @@ public class App
         }
 
         return result;
-    }
-
-    public static void main(String[] args) throws IllegalArgumentException {
-
-        List<String> lines = new ArrayList<>();
-        lines = Arrays.asList("DEPEND TELNET TCPIP NETCARD",
-                "DEPEND TCPIP NETCARD",
-                "DEPEND DNS TCPIP NETCARD",
-                "DEPEND BROWSER TCPIP HTML",
-                "INSTALL NETCARD",
-                "INSTALL TELNET",
-                "INSTALL FOO",
-                "REMOVE NETCARD",
-                "INSTALL BROWSER",
-                "INSTALL DNS",
-                "LIST",
-                "REMOVE TELNET",
-                "REMOVE NETCARD",
-                "REMOVE DNS",
-                "REMOVE NETCARD",
-                "INSTALL NETCARD",
-                "REMOVE TCPIP",
-                "REMOVE BROWSER",
-                "REMOVE TCPIP",
-                "LIST");
-
-
-
-        //lines = Arrays.asList("DEPEND A B", "DEPEND B A");
-
-        /*lines = Arrays.asList(
-                "DEPEND A B",
-                "DEPEND B C",
-                "DEPEND C D",
-                "DEPEND D E",
-                "INSTALL A",
-                "LIST",
-                "REMOVE D",
-                "REMOVE A",
-                "LIST");*/
-
-        /*lines = Arrays.asList(
-                "DEPEND A B C",
-                "DEPEND B C",
-                "INSTALL A"
-                );*/
-
-        /*lines = Arrays.asList(
-                "DEPEND A D C",
-                "DEPEND D C",
-                "INSTALL A"
-        );*/
-
-        //Cycle detected
-        /*lines = Arrays.asList(
-                "DEPEND J D C A",
-                "DEPEND D C",
-                "DEPEND C J",
-                "INSTALL J"
-        );*/
-
-        //Recursively Remove
-        /*lines = Arrays.asList(
-                "DEPEND A B",
-                "DEPEND B C",
-                "DEPEND D B", //BUG dep defined by not installed it still blocks removal
-                "INSTALL A",
-                //"INSTALL D",
-                "LIST",
-                "REMOVE C",
-                "REMOVE B",
-                "REMOVE A",
-                "LIST"
-        );*/
-
-
-        //recursively Depend
-        /*lines = Arrays.asList(
-                "DEPEND A B",
-                "DEPEND B C",
-                "INSTALL A",
-                "REMOVE A",
-                "LIST"
-                );*/
-
-
-        //Depend
-        /*lines = Arrays.asList(
-                "DEPEND A B",
-                "DEPEND B C",
-                "DEPEND D C",
-                "INSTALL A",
-                "REMOVE A",
-                "LIST"
-                );*/
-
-
-
-        ArrayList<String> result = run(lines);
-        for(String line : result)
-            System.out.println(line);
     }
 }

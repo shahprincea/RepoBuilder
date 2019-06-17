@@ -18,6 +18,7 @@ public class AppTest
     public void longInterdependentTest()
     {
         List<String> lines = new ArrayList<>();
+        App app = new App();
 
         lines = Arrays.asList("DEPEND TELNET TCPIP NETCARD",
                 "DEPEND TCPIP NETCARD",
@@ -40,7 +41,7 @@ public class AppTest
                 "REMOVE TCPIP",
                 "LIST");
 
-        List<String> result = App.run(lines);
+        List<String> result = app.run(lines);
 
         StringBuilder stringBuilder = new StringBuilder();
         //Store result of last command LIST
@@ -48,5 +49,41 @@ public class AppTest
         String output = stringBuilder.toString().trim();
 
         assertTrue( output.equals("NETCARD     FOO"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void detectCycleTest()
+    {
+        App app = new App();
+        List<String> lines = new ArrayList<>();
+
+        lines = Arrays.asList("DEPEND J D C A",
+                "DEPEND D C",
+                "DEPEND C J",
+                "INSTALL J");
+
+        app.run(lines);
+    }
+
+    @Test
+    public void recursivelyRemoveDependency()
+    {
+        List<String> lines = new ArrayList<>();
+        App app = new App();
+
+        lines = Arrays.asList("DEPEND A B",
+                "DEPEND B C",
+                "DEPEND D B",
+                "INSTALL A",
+                //"INSTALL D",
+                "LIST",
+                "REMOVE C",
+                "REMOVE B",
+                "REMOVE A",
+                "LIST");
+
+        List<String> result = app.run(lines);
+
+        assertTrue("LIST".equals(result.get(result.size()-1)));
     }
 }
