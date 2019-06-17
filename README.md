@@ -2,13 +2,15 @@
 
 This project is intended to build package manager similar to yum or apt in java. Many time you want to install a package A that depedents on package B and C and that in turn can dependent on some other package say Z. So it should first install Z then B and C and A. Likewise if you delete A it should recursively delete B, C and Z. 
 
+![alt text](https://github.com/shahprincea/RepoBuilder/blob/master/images/PackageDependency.png)
+
 Needless to say we need to keep track of which package depedent on which and also reverse relationship that is which package is been used by which package. 
 
 Here core ADT (Abstract Data Type) is Graph. Graph uses adjacency list to keep two way relationship. It also has a utility class GraphUtil which helps to detect if there is a cycle in the graph. 
 
-Also, I have tried to used Singleton and Stragey design patterns to keep things loosely coupled. 
+Also, I have tried to used Singleton and Strategy design patterns to keep things loosely coupled. 
 
-
+![alt text](https://github.com/shahprincea/RepoBuilder/blob/master/images/FileStructures.png)
 
 ### Prereq
 Install following tools on your laptop
@@ -27,7 +29,7 @@ cd ~/codebase
 ```
 Clone the project
 ``` 
-git clone 
+git clone https://github.com/shahprincea/RepoBuilder.git
 ```
 
 ## Build 
@@ -41,4 +43,9 @@ mvn clean package
 In order to run from the jar file. This is what CF will use to run the app in the cloud. 
 ```
 java -jar target/*.jar
+```
+
+In order to build project for Idea you can run 
+```
+mvn idea:idea
 ```
