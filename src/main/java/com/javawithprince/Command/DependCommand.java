@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class DependCommand implements Command {
 
     @Override
-    public ArrayList<String> execute(String arg) throws IllegalArgumentException {
-
-        RepoContext context = RepoContext.getInstance();
+    public ArrayList<String> execute(String arg, RepoContext context) throws IllegalArgumentException {
 
         ArrayList<String> list = new ArrayList<>();
 
@@ -32,9 +30,6 @@ public class DependCommand implements Command {
                     throw new IllegalArgumentException("Cyclic depedencies detected");
                 }
             }
-
-            //list.add(MessageFormat.format(DEPEND, arg));
-
         }
         return list;
     }

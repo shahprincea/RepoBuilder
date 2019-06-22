@@ -9,21 +9,16 @@ import java.util.HashSet;
 
 public class RemoveCommand implements Command {
 
-    private static String STILL_NEEDED = "  {0} is still needed";
-    private static String SUCCESSFULLY_REMOVED = "  {0} successfully removed";
-    private static String NOT_NEEDED = "  {0} is no longer needed";
-    private static String NOT_INSTALLED = "  {0} is not installed";
-
     @Override
-    public ArrayList<String> execute(String pkg) {
+    public ArrayList<String> execute(String pkg, RepoContext context) {
 
-        RepoContext context = RepoContext.getInstance();
         ArrayList<String> pkgReverseDependencies = context.getReverseDependencies(pkg);
         HashSet<String> installedPkgs = context.getInstalledPkg();
         HashSet<String> installedPKgsExplicit = context.getInstalledPKgsExplicit();
 
         ArrayList<String> result = new ArrayList<>();
 
+        String STILL_NEEDED = "  {0} is still needed";
         if(getUsedByAndInstalled(installedPkgs, context.getReverseDependencies(pkg)) > 0)
             result.add(MessageFormat.format(STILL_NEEDED, pkg));
         else
@@ -35,6 +30,7 @@ public class RemoveCommand implements Command {
     private void removeRecursively(RepoContext context, String pkg, HashSet<String> installedPkgs, HashSet<String> installedPKgsExplicit, ArrayList<String> result) {
 
         if(!installedPkgs.contains(pkg)) {
+            String NOT_INSTALLED = "  {0} is not installed";
             result.add(MessageFormat.format(NOT_INSTALLED, pkg));
             return;
         }
@@ -48,6 +44,7 @@ public class RemoveCommand implements Command {
         //You should only delete the package if it is not explicitly installed and has zero dependencies
         if(usedByAndInstalled == 0) {
             installedPkgs.remove(pkg);
+            String SUCCESSFULLY_REMOVED = "  {0} successfully removed";
             result.add(MessageFormat.format(SUCCESSFULLY_REMOVED, pkg));
             installedPKgsExplicit.remove(pkg);
 
@@ -57,6 +54,7 @@ public class RemoveCommand implements Command {
                 reverseDependenciesMap.get(dependentPkg).remove(pkg);
 
                 if(getUsedByAndInstalled(installedPkgs, new ArrayList<>(reverseDependenciesMap.get(dependentPkg))) == 0 && !installedPKgsExplicit.contains(dependentPkg)) {
+                    String NOT_NEEDED = "  {0} is no longer needed";
                     result.add(MessageFormat.format(NOT_NEEDED, dependentPkg));
                     removeRecursively(context, dependentPkg, installedPkgs, installedPKgsExplicit, result);
                 }

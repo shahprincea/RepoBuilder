@@ -12,8 +12,8 @@ import java.util.Objects;
  */
 public class Graph {
 
-    private HashMap<String, HashSet<String>> dependenciesMap;
-    private HashMap<String, HashSet<String>> reverseDependenciesMap;
+    private final HashMap<String, HashSet<String>> dependenciesMap;
+    private final HashMap<String, HashSet<String>> reverseDependenciesMap;
 
     public Graph() {
         dependenciesMap = new HashMap<>();

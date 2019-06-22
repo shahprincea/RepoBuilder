@@ -6,11 +6,12 @@ import java.util.HashMap;
 
 public class GraphUtil {
 
-    private static int UNVISITED = 0, VISITING = 1, VISITED = 2;
+    private static final int UNVISITED = 0;
 
     private static boolean DFS(Graph graph, String vertex, HashMap<String, Integer> colorMap) {
 
         //Visiting
+        int VISITING = 1;
         colorMap.put(vertex, VISITING);
 
         //Iterate through all the neighbors of the visiting vertex
@@ -24,6 +25,7 @@ public class GraphUtil {
                 return true;
         }
 
+        int VISITED = 2;
         colorMap.put(vertex, VISITED);
         return false;
     }

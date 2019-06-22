@@ -1,6 +1,7 @@
 package com.javawithprince;
 
 import com.javawithprince.Command.*;
+import com.javawithprince.POJO.RepoContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +16,13 @@ public class App
 
     public ArrayList<String> run(List<String> lines) {
 
+        RepoContext context = new RepoContext();
+
         Command listCommand = new ListCommand();
         Command dependCommand = new DependCommand();
         Command installCommand = new InstallCommand();
         Command removeCommand = new RemoveCommand();
+
 
         HashMap<String, Command> map = new HashMap<>();
         map.put("DEPEND", dependCommand);
@@ -45,7 +49,7 @@ public class App
             }
             Command cmd = map.get(cmdType);
             if(cmd != null)
-                result.addAll(new CommandRunner(cmd).run(cmdArgs));
+                result.addAll(new CommandRunner(cmd).run(cmdArgs, context));
 
         }
 

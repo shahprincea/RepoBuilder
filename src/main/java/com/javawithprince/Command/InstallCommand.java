@@ -15,13 +15,9 @@ import java.util.HashSet;
  */
 public class InstallCommand implements Command {
 
-    private static String INSTALLED_SUCCESSFUL = "  {0} successfully installed";
-    private static String ALREADY_INSTALLED = "  {0} is already installed";
-
     @Override
-    public ArrayList<String> execute(String pkg) {
+    public ArrayList<String> execute(String pkg, RepoContext context) {
 
-        RepoContext context = RepoContext.getInstance();
         ArrayList<String> pkgDependencies = context.getDependencies(pkg);
         HashSet<String> installedPkgs = context.getInstalledPkg();
         HashSet<String> installedPKgsExplicit = context.getInstalledPKgsExplicit();
@@ -39,6 +35,7 @@ public class InstallCommand implements Command {
 
         //If pkg is already installed skipped
         if(installedPkgs.contains(pkg)) {
+            String ALREADY_INSTALLED = "  {0} is already installed";
             result.add(MessageFormat.format(ALREADY_INSTALLED, pkg));
         }
 
@@ -49,6 +46,7 @@ public class InstallCommand implements Command {
         }
 
         if(context.install(pkg)) {
+            String INSTALLED_SUCCESSFUL = "  {0} successfully installed";
             result.add(MessageFormat.format(INSTALLED_SUCCESSFUL, pkg));
             installedPkgs.add(pkg);
         }

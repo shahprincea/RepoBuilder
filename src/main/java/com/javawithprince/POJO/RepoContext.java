@@ -15,20 +15,10 @@ public class RepoContext {
     private static HashSet<String> installedPkgs;
     private static HashSet<String> installedPKgsExplicit;
 
-    private RepoContext() {}
-
-    //Lazy Loading Singleton
-    public static RepoContext getInstance(){
-
-        if(repo == null)
-            repo = new RepoContext();
-        if(dependenciesGraph == null)
-            dependenciesGraph = new Graph();
-        if(installedPkgs == null)
-            installedPkgs = new HashSet<>();
-        if(installedPKgsExplicit == null)
-            installedPKgsExplicit = new HashSet<>();
-        return repo;
+    public RepoContext() {
+        dependenciesGraph = new Graph();
+        installedPkgs = new HashSet<>();
+        installedPKgsExplicit = new HashSet<>();
     }
 
     //Used for testing
